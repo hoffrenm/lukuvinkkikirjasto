@@ -17,6 +17,8 @@ def tip_create_new():
     if not request.json:
         abort(400)  
 
+    data = request.get_json()
+
     tip = Tip(data["title"], data["url"])
 
     db.session().add(tip)

@@ -16,7 +16,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
 
-# apille menevät kutsut tulee importata ennen viimeistä routea, 
+# apille menevät polut tulee importata ennen viimeistä routea, 
 # joka lähettää reactin koodin selaimelle
 from application.tips import models, views
 
