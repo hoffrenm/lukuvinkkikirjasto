@@ -21,30 +21,45 @@
 - [React unit testing - React ja jest fullstack-kurssilla](https://fullstackopen.com/osa5/react_sovellusten_testaaminen)
 
 
-Toteutetut apit:
+## Sovelluksen paikallinen asennus 
 
-## 1. Lukuvinkkien listaus GET
+1. Asenna sovelluksen käyttöön virtuaaliympäristö
+```
+$ python3 -m venv venv
+```
 
-http://localhost:5000/api/tips
+2. Saata virtuaaliympäristö aktiiviseksi
+```
+$ source venv/bin/activate
+```
+
+3. Asenna projektin riippuvuudet
+```
+(venv) $ pip install -r requirements.txt
+```
+
+4. Käynnistä sovellus
+```
+(venv) $ python run.py
+```
+
+Sovellus käynnistyy oletusarvoisesti osoitteeseen http://localhost:5000/
+
+### Tämänhetkiset frontin polut:
+
+http://localhost:5000 (etusivu)
+
+http://localhost:5000/add-tip (vinkin lisäys)
+
+### rest api (kaikki pyynnöt palauttavat JSONia):
+
+**GET** http://localhost:5000/api/tips (kaikki vinkit)
+
+**GET** http://localhost:5000/api/tips/<tip_id> (yksittäinen vinkki)
+
+**POST** http://localhost:5000/api/tips ottaa {"title":"abc, "url":"123"}, palauttaa {title, url, id, read}
 
 
-## 2. Yhden lukuvinkin haku GET
+## HUOM
 
-http://localhost:5000/api/tips/<tip_id>
-
-
-## 3. Uuden lukuvinkin tallennus POST
-http://localhost:5000/api/tips
-
-Tallennusta on testattu alla olevalla...
-Esim:
-curl -d '{"name": "Testinimi", "link": "http://www.google.com"}' -H "Content-Type: application/json" http://localhost:5000/api/tips
-
-## Sovelluksen kokeileminen:
-Sovelluksen voi käynnistää komentoriviltä kahdella komennolla. Sovelluksen käynnistämiseksi pitää ajaa ensin pythonin virtuaaliympäristön(venv) käynnistävä komento:
-
-source venv/bin/activate
-
-Seuraavaksi pitää ajaa komento : python run.py
-
-Kirjoittamalla vain python run.py saa virheilmoituksen. 
+Tietokantamodelin muuttuessa tietokanta (tips.db) pitää poistaa, jotta sqlalchemy luo uuden muuttuneilla tiedoilla
