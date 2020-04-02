@@ -1,10 +1,7 @@
 #Flaskin käyttöönotto
-from flask import Flask, render_template
+import os
+from flask import Flask, render_template, send_from_directory
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
-
-@app.route("/")
-def hello():
-    return render_template('index.html')
 
 #SQLAlchemyn käyttöönotto
 from flask_sqlalchemy import SQLAlchemy
@@ -19,8 +16,14 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
 
-# roudataan kamaa sovelluksen sisältä
+# apille menevät kutsut tulee importata ennen viimeistä routea, 
+# joka lähettää reactin koodin selaimelle
 from application.tips import models, views
 
 #taulujen luonti
 db.create_all()
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+    return render_template('index.html')

@@ -16,8 +16,10 @@ def tip_get_one(tip_id):
 def tip_create_new():
     if not request.json:
         abort(400)  
-    tip = Tip(request.json['name'], request.json['link'])    
+
+    tip = Tip(data["title"], data["url"])
+
     db.session().add(tip)
     db.session().commit()
 
-    return redirect(url_for('tip_get_one', tip_id=tip.id))
+    return jsonify(tip.serialize)
