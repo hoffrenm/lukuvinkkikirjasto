@@ -11,7 +11,7 @@ class Tip(db.Model):
     name = db.Column(db.String(144), nullable=False)
     link = db.Column(db.String(144), nullable=False)
     # puhetta oli, että lukuvinkin voisi merkitä myös luetuksi.
-    read = db.Column(db.Boolean, nullable=False)
+    read = db.Column(db.Boolean, default=False, nullable=False)
     
     #Tagit voi toteuttaa joko monen suhde moneen tai 1 suhde moneen tauluna. Monen suhde moneen mallissa tag ei ole tässä taulussa vaan on olemassa erillinen 
     #linkkitaulu niille. 

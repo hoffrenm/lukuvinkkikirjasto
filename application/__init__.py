@@ -1,6 +1,10 @@
 #Flaskin käyttöönotto
 from flask import Flask
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../build/static", template_folder="../build")
+
+@app.route("/")
+def hello():
+    return render_template('index.html')
 
 #SQLAlchemyn käyttöönotto
 from flask_sqlalchemy import SQLAlchemy
@@ -16,8 +20,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 
 # roudataan kamaa sovelluksen sisältä
-from application.tips import models
-from application import views
+from application.tips import models, views
 
 #taulujen luonti
 db.create_all()
