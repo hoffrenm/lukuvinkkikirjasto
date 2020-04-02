@@ -1,5 +1,4 @@
-# lukuvinkkikirjasto
-
+# Lukuvinkkikirjasto [![CircleCI](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto.svg?style=svg)](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto)
 
 ## Linkit
 
