@@ -38,7 +38,7 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
-            pytest --cov=./
+            pytest --cov=./application/
             codecov
       - store_artifacts:
           path: test-reports/
