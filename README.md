@@ -1,4 +1,6 @@
-# Lukuvinkkikirjasto [![CircleCI](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto.svg?style=svg)](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto)
+# Lukuvinkkikirjasto [![CircleCI](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto.svg?style=svg)](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto) [![codecov](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto/branch/master/graph/badge.svg)](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto)
+
+
 
 ## Linkit
 
