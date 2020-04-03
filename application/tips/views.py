@@ -1,4 +1,4 @@
-from flask import request, json, jsonify, redirect, url_for  #requestin tarpeesta en tiedä, jsonify:n pitäisi tehdä json
+from flask import request, json, jsonify, redirect, url_for, abort
 from application import app, db
 from .models import Tip
 
@@ -10,6 +10,10 @@ def tip_listing():
 @app.route('/api/tips/<tip_id>', methods = ['GET'])
 def tip_get_one(tip_id):
     tip = Tip.query.get(tip_id)
+    if tip is None:
+        abort(404)
+
+
     return jsonify(tip.serialize)
 
 @app.route('/api/tips', methods = ['POST'])
@@ -19,7 +23,10 @@ def tip_create_new():
 
     data = request.get_json()
 
-    tip = Tip(data["title"], data["url"])
+    if "title" not in data:
+        abort(400)
+
+    tip = Tip(data["title"].strip(), data["url"].strip())
 
     db.session().add(tip)
     db.session().commit()
