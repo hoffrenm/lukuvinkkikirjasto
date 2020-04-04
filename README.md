@@ -6,6 +6,7 @@
 
 - [Backlog](https://docs.google.com/spreadsheets/d/1IS_yv30a5yUQ6J1LMNpbrXzmWxI1I0-6cgwT6GnvXSs/edit?usp=sharing)
 - [CircleCI](#)
+- [frontend](https://github.com/hoffrenm/lukuvinkkikirjasto-front)
 
 ## Resursseja
 
@@ -64,3 +65,10 @@ http://localhost:5000/add-tip (vinkin lisäys)
 ## HUOM
 
 Tietokantamodelin muuttuessa tietokanta (tips.db) pitää poistaa, jotta sqlalchemy luo uuden muuttuneilla tiedoilla
+
+
+## Suorita testit
+
+- yksikkötestit: python -m unittest discover tests, (windows) python -m unittest discover tests -p *
+- codecoverage: coverage run -m unittest discover tests, (windows) coverage run -m unittest discover tests -p *
+- coverage report: coverage report
