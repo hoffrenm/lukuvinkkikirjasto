@@ -1,29 +1,27 @@
+
 #Flaskin käyttöönotto
 import os
 from flask import Flask, render_template, send_from_directory
-app = Flask(__name__, static_folder="../build/static", template_folder="../build")
-
-#SQLAlchemyn käyttöönotto
 from flask_sqlalchemy import SQLAlchemy
+from config import config
 
-# otetaan käyttöön "tips" niminen tietokanta
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tips.db"
+db = SQLAlchemy() # luodaan db:n instanssi ensin ja konffataan create_app -funkkarissa ks. alla
 
-# pyydetään SQL-Alchemya tekemään kaikki sql-kyselyt
-app.config["SQLALCHEMY_ECHO"] = True
+def create_app(config_name):
+    app = Flask(__name__, static_folder="../build/static", template_folder="../build") 
+    app.config.from_object(config[config_name]) # juurikansiossa config.py:ssä on "testing", "development" ja "production" objektit - parametri config_name on joku näistä
+    
+    with app.app_context(): # ilman tätä applikaation instanssi ei pääse käsiksi tietokantaan ks. https://flask.palletsprojects.com/en/1.0.x/appcontext/#manually-push-a-context
+        db.init_app(app)
 
-# kutsutaan db:tä
+        from .models import Tip 
+        db.create_all()
 
-db = SQLAlchemy(app)
+    ## blueprinteistä täällä: https://flask.palletsprojects.com/en/1.1.x/blueprints/
+    from .api import api as api_blueprint, views # porttaa apin blueprint nimellä api_blueprint ja porttaa ./api/views, jossa routet määritelty
+    app.register_blueprint(api_blueprint, url_prefix='/api/') # rekisteröi blueprint ja prefixaa "/api/", jolloin apin routteihin ei tarvitse lisätä "/api/""
 
-# apille menevät polut tulee importata ennen viimeistä routea, 
-# joka lähettää reactin koodin selaimelle
-from application.tips import models, views
+    from .main import main as main_blueprint, views # porttaa etusivun blueprint nimellä main_blueprint ja views = etusivu
+    app.register_blueprint(main_blueprint) # rekisteröi blueprint
 
-#taulujen luonti
-db.create_all()
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def index(path):
-    return render_template('index.html')
+    return app

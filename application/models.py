@@ -1,4 +1,4 @@
-from application import db
+from . import db
 
 
 class Tip(db.Model):
