@@ -9,6 +9,16 @@
 - [CircleCI](#)
 - [frontend](https://github.com/hoffrenm/lukuvinkkikirjasto-front)
 
+## Suorita testit
+
+- yksikkötestit: 
+  - python -m unittest discover tests 
+  - (windows) python -m unittest discover tests -p *
+- codecoverage: 
+  - coverage run -m unittest discover tests 
+  - (windows) coverage run -m unittest discover tests -p *
+- coverage report: coverage report
+
 ## Resursseja
 
 ### CircleCi
@@ -66,10 +76,3 @@ http://localhost:5000/add-tip (vinkin lisäys)
 ## HUOM
 
 Tietokantamodelin muuttuessa tietokanta (tips.db) pitää poistaa, jotta sqlalchemy luo uuden muuttuneilla tiedoilla
-
-
-## Suorita testit
-
-- yksikkötestit: python -m unittest discover tests, (windows) python -m unittest discover tests -p *
-- codecoverage: coverage run -m unittest discover tests, (windows) coverage run -m unittest discover tests -p *
-- coverage report: coverage report
