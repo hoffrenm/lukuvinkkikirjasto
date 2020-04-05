@@ -1,4 +1,6 @@
-# Lukuvinkkikirjasto [![CircleCI](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto.svg?style=svg)](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto) [![codecov](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto/branch/master/graph/badge.svg)](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto)
+# Lukuvinkkikirjasto [![CircleCI](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto.svg?style=shield)](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto) [![codecov](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto/branch/master/graph/badge.svg)](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto)
+
+# [Lukuvinkkikirjaston frontend](https://github.com/hoffrenm/lukuvinkkikirjasto-front) [![CircleCI](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto-front.svg?style=shield)](https://circleci.com/gh/hoffrenm/lukuvinkkikirjasto-front) [![codecov](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto-front/branch/master/graph/badge.svg)](https://codecov.io/gh/hoffrenm/lukuvinkkikirjasto-front)
 
 
 
@@ -6,8 +8,7 @@
 
 - [Appi herokussa](https://nvinkit.herokuapp.com/)
 - [Backlog](https://docs.google.com/spreadsheets/d/1IS_yv30a5yUQ6J1LMNpbrXzmWxI1I0-6cgwT6GnvXSs/edit?usp=sharing)
-- [CircleCI](#)
-- [frontend](https://github.com/hoffrenm/lukuvinkkikirjasto-front)
+- [Definition of done](https://github.com/hoffrenm/lukuvinkkikirjasto/blob/master/definitionOfDone.md)
 
 ## Suorita testit
 
