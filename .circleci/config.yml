@@ -31,9 +31,5 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
+            pytest --cov=./application/api/
             codecov
-            coverage run -m unittest discover tests
-      - run: 
-          command: |
-            bash <(curl -s https://codecov.io/bash)
-

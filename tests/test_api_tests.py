@@ -1,6 +1,6 @@
 import unittest
 import json
-import re
+from application.models import Tip
 
 from application import create_app, db
 
@@ -12,6 +12,9 @@ class TestApi(unittest.TestCase):
         self.app_context.push()
         with self.app.app_context():
             db.create_all()
+            db.session.add(Tip("First!", "Here should be url"))
+            db.session.add(Tip("Another tip", "Imagine url here too"))
+            db.session.commit()
         self.client = self.app.test_client()
 
     def tearDown(self):
@@ -44,13 +47,35 @@ class TestApi(unittest.TestCase):
             headers=self.get_api_headers(),
             data=json.dumps({'title': 'joku vinkki', 'url': 'joku url'})
         )
-        self.assertTrue(response.status_code == 200) # 201 created ehkä parempi?
+
+        self.assertTrue(response.status_code == 201)
     
     # vinkin luominen onnistuu kun pelkkä otsikko
     def test_tip_create_new_only_title(self):
-        # response = self.client.post(
-        #     '/api/tips',
-        #     headers=self.get_api_headers(),
-        #     data=json.dumps({'title': 'vinkin otsikko'})
-        # )
-        self.assertTrue(True == True) # tee testi loppuun
+        response = self.client.post(
+            '/api/tips',
+            headers=self.get_api_headers(),
+            data=json.dumps({'title': 'vinkin otsikko', 'url': ''})
+        )
+
+        self.assertTrue(response.status_code == 201)
+
+    def test_tip_cannot_be_created_without_title(self):
+        response = self.client.post(
+            '/api/tips',
+            headers=self.get_api_headers(),
+            data=json.dumps({'url': 'Testing url'})
+        )
+
+        self.assertTrue(response.status_code == 400)
+
+    def test_tip_can_be_found_by_id(self):
+        response = self.client.get('/api/tips/1')
+
+        self.assertTrue(response.status_code == 200)
+
+    def test_invalid_id_finds_no_tip(self):
+        response = self.client.get('/api/tips/jhfk781')
+
+        self.assertTrue(response.status_code == 404)
+    

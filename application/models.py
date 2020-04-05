@@ -9,7 +9,7 @@ class Tip(db.Model):
     onupdate=db.func.current_timestamp())
     #vinkin nimi ja linkki on String-muodossa
     title = db.Column(db.String(144), nullable=False)
-    url = db.Column(db.String(144), nullable=False)
+    url = db.Column(db.String(144), nullable=True)
     # puhetta oli, että lukuvinkin voisi merkitä myös luetuksi.
     read = db.Column(db.Boolean, default=False, nullable=False)
     
