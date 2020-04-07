@@ -12,13 +12,21 @@
 
 ## Suorita testit
 
-- yksikkötestit: 
-  - python -m unittest discover tests 
-  - (windows) python -m unittest discover tests -p *
-- codecoverage: 
-  - coverage run -m unittest discover tests 
-  - (windows) coverage run -m unittest discover tests -p *
-- coverage report: coverage report
+Alla oleva toimii ainakin Linuxilla (muista aktivoida venv)
+```
+pytest --cov=./application/api/ --cov-report html
+```
+Testikattavuusraportti generoituu juurikansioon tiedostoon *htmlcov/index.html*
+
+Kansiossa requests oleva [tip_api.rest](https://github.com/hoffrenm/lukuvinkkikirjasto/blob/master/requests/tip_api.rest) sisältää pyyntöjä joita voi nopeasti suorittaa kehityksen ohessa.
+
+Ohjeet:
+1. Asenna Visual Studio Codeen liitännäinen Rest Client (löytyy extensions välilehden kautta)
+2. Avaa tip_api.rest tiedosto editorissa
+3. Lähetä pyyntö "Send Request" painikkeen avulla, joka on pyynnön yläpuolella
+4. Vastaus aukeaa vakiona editoriin uudelle lehdelle
+
+Backendin tulee luonnollisesti olla käynnissä ja pyyntöjä kannattaa toistaa aina kun polkujen logiikkaan tekee muutoksia, jotta muutoksien vaikutukset näkee välittömästi.
 
 ## Resursseja
 
