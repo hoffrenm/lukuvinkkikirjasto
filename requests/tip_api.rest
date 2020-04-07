@@ -1,0 +1,24 @@
+### Get all tips
+GET http://localhost:5000/api/tips
+
+### Get tip by id
+GET http://localhost:5000/api/tips/1
+
+### Add valid tip
+POST http://localhost:5000/api/tips
+Content-Type: application/json
+
+{
+    "title": "Testing an api",
+    "url": "http://www.google.com" 
+}
+
+### Add invalid tip
+POST http://localhost:5000/api/tips
+Content-Type: application/json
+
+{
+    "url": "http://www.google.com" 
+}
+
+###

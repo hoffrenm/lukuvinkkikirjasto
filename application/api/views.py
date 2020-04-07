@@ -6,7 +6,7 @@ from . import api # tämä on blueprint ks https://flask.palletsprojects.com/en/
 @api.route('/tips', methods=['GET'])
 def tip_listing():
     tips = Tip.query.all()
-    return jsonify([tip.serialize for tip in tips])
+    return Response(json.dumps([tip.serialize for tip in tips]), status=200, mimetype='application/json; charset=utf-8')
 
 @api.route('/tips/<tip_id>', methods = ['GET'])
 def tip_get_one(tip_id):
