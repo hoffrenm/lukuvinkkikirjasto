@@ -32,6 +32,9 @@ def tip_create_new():
     return Response(json.dumps(tip.serialize), status=201, mimetype='application/json')
 
 
+
+#metodi vinkin poistamiseen. Laitoin redirectin listaukseen. Sitä tietenkin voi miettiä, mihin sen deletoinnin jälkeen 
+#haluaa vievän. Päällepäin tämä näytti toimivan.
 @api.route("/tips/<tip_id>/remove", methods = ["POST"])
 def tip_remove(tip_id):
 
