@@ -29,3 +29,15 @@ class Tip(db.Model):
             'url' : self.url,
             'read' : self.read
         }    
+
+# uusi tag-luokka. Täytyy tarkistaa, kuuluiko tagillekin aikaleima
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(144), nullable=False)	
+	
+    
+#yhdistetaulu tipeistä ja tageista.
+tiptags = db.Table('tiptags',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
+    db.Column('tip_id', db.Integer, db.ForeignKey('tip.id'), primary_key=True)
+)
