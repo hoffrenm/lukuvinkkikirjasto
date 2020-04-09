@@ -30,3 +30,13 @@ def tip_create_new():
     db.session().commit()
 
     return Response(json.dumps(tip.serialize), status=201, mimetype='application/json')
+
+
+@api.route("/tips/<tip_id>/remove", methods = ["POST"])
+def tip_remove(tip_id):
+
+    tip = Tip.query.get(tip_id)
+    db.session().delete(tip)
+    db.session().commit()
+
+    return redirect(url_for("tip_listing"))
