@@ -13,3 +13,5 @@ curl -d '{"name": "Testinimi", "link": "http://www.google.com"}' -H "Content-Typ
 
 
 curl -d '{"title": "Testinimi", "url": "http://www.google.com"}' -H "Content-Type: application/json" http://localhost:5000/api/tips
+
+curl -d '{"title": "Testinimi", "url": "http://www.google.com", "tags": ["kissa","cat","feline"]}' -H "Content-Type: application/json" http://localhost:5000/api/tips
