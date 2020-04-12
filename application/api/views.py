@@ -1,5 +1,5 @@
 from flask import Response, request, json, jsonify, redirect, url_for, abort, current_app
-from ..models import Tip
+from ..models import Tip, Tag
 from application import db
 from . import api # tämä on blueprint ks https://flask.palletsprojects.com/en/1.1.x/blueprints/
 
@@ -25,21 +25,36 @@ def tip_create_new():
         return Response(json.dumps({'error': 'title must be provided'}), status=400, mimetype='application/json')
 
     tip = Tip(data["title"].strip(), data["url"].strip())
-
+    
+    if 'tags' in data: # käsitellään tagit vain jos attribuutti "tags" datassa
+        for tagName in data["tags"]:
+            # oletus että front palauttaa tagin nimen tagina
+            tag = Tag.query.filter(Tag.name == tagName).first()
+            if tag is None:
+                tag = Tag(tagName)
+                db.session().add(tag)
+            tip.tags.append(tag)
+    
     db.session().add(tip)
     db.session().commit()
 
     return Response(json.dumps(tip.serialize), status=201, mimetype='application/json')
 
 
-
 #metodi vinkin poistamiseen. Laitoin redirectin listaukseen. Sitä tietenkin voi miettiä, mihin sen deletoinnin jälkeen 
 #haluaa vievän. Päällepäin tämä näytti toimivan.
-@api.route("/tips/<tip_id>/remove", methods = ["POST"])
+@api.route("/tips/<tip_id>", methods = ["DELETE"]) # metodi DELETE ja REST-käytännön mukaan kutsun route: /api/tips/{tip_id}
 def tip_remove(tip_id):
 
-    tip = Tip.query.get(tip_id)
+    tip = Tip.query.get_or_404(tip_id) # sama kuin get, mutta palauttaa 404 jos tietuetta ei löydy
     db.session().delete(tip)
     db.session().commit()
 
-    return redirect(url_for("tip_listing"))
+    return Response(status=204)
+
+#Tag-taulun testaamista varten tehty metodi
+@api.route('/tags', methods=['GET'])
+def tag_listing():
+    tags = Tag.query.all()
+    return Response(json.dumps([tag.serialize for tag in tags]), status=200, mimetype='application/json; charset=utf-8')
+
