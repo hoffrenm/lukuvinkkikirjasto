@@ -26,14 +26,15 @@ def tip_create_new():
 
     tip = Tip(data["title"].strip(), data["url"].strip())
     
-    for tagName in data["tags"]:
-        # oletus että front palauttaa tagin nimen tagina
-        tag = Tag.query.filter(Tag.name == tagName).first()
-        if tag is None:
-            tag = Tag(tagName)
-            db.session().add(tag)
-        tip.tags.append(tag)
-
+    if 'tags' in data: # käsitellään tagit vain jos attribuutti "tags" datassa
+        for tagName in data["tags"]:
+            # oletus että front palauttaa tagin nimen tagina
+            tag = Tag.query.filter(Tag.name == tagName).first()
+            if tag is None:
+                tag = Tag(tagName)
+                db.session().add(tag)
+            tip.tags.append(tag)
+    
     db.session().add(tip)
     db.session().commit()
 
@@ -42,14 +43,14 @@ def tip_create_new():
 
 #metodi vinkin poistamiseen. Laitoin redirectin listaukseen. Sitä tietenkin voi miettiä, mihin sen deletoinnin jälkeen 
 #haluaa vievän. Päällepäin tämä näytti toimivan.
-@api.route("/tips/<tip_id>/remove", methods = ["POST"])
+@api.route("/tips/<tip_id>", methods = ["DELETE"]) # metodi DELETE ja REST-käytännön mukaan kutsun route: /api/tips/{tip_id}
 def tip_remove(tip_id):
 
-    tip = Tip.query.get(tip_id)
+    tip = Tip.query.get_or_404(tip_id) # sama kuin get, mutta palauttaa 404 jos tietuetta ei löydy
     db.session().delete(tip)
     db.session().commit()
 
-    return redirect(url_for("tip_listing"))
+    return Response(status=204)
 
 #Tag-taulun testaamista varten tehty metodi
 @api.route('/tags', methods=['GET'])
