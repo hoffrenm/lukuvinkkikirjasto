@@ -1,6 +1,5 @@
 from . import db
 
-
 #yhdistetaulu tipeistä ja tageista. Huomio itselleni ja miksei muillekin:
 # Jotta Tip-luokassa voidaan viitata tähän yhteystauluun, yhteystaulun täytyy olla jo luotuna. Järjestyksellä on merkitystä ja sen
 # takia tämä tiptags-taulu on ylimpänä. Yhteystaulun voi siis luoda ennen classeja, mutta ei toisinpäin.
@@ -36,8 +35,8 @@ class Tip(db.Model):
             'title' : self.title,
             'url' : self.url,
             'read' : self.read,
-            'tags' : [tag.name for tag in self.tags]
-
+            'tags' : [tag.name for tag in self.tags],
+            'createdAt': self.date_created
         }    
 
 # uusi tag-luokka. Täytyy tarkistaa, kuuluiko tagillekin aikaleima
@@ -47,8 +46,7 @@ class Tag(db.Model):
 
     #Tagillekin init-metodi
     def __init__(self, name):
-        self.name = name
-    
+        self.name = name    
 
     #serialize-metodi tagille
     @property
@@ -58,4 +56,3 @@ class Tag(db.Model):
             'name' : self.name
         }
 	
-    
