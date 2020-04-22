@@ -58,3 +58,24 @@ def tag_listing():
     tags = Tag.query.all()
     return Response(json.dumps([tag.serialize for tag in tags]), status=200, mimetype='application/json; charset=utf-8')
 
+#22.4, 3. sprintti
+#Tipit yhden tagin perusteella
+#Ymmärsin että yhden tagin perusteella, mutta tajusin vasta myöhemmin, että pitikö tämän olla monella tagilla toimiva, eli pitäisikö tag_id:stä olla lista.
+@api.route('tags/<tag_name>', methods=['GET'])
+def tips_for_tag(tag_name):
+
+    tag = Tag.query.filter(Tag.name==tag_name).first()
+    # koska relaatio on backreffillä olemassa tietokannassa, pitäisi olla mahdollista hakea
+    # tags = tip.tags ja vastaavasti:
+    tips = tag.tips
+ 
+    return Response(json.dumps([tip.serialize for tip in tips]), status=200, mimetype='application/json; charset=utf-8')
+
+#22.4 3.sprintti
+#Vinkit, joita ei ole vielä luettu
+@api.route('tips/nonread', methods=['GET'])
+def tips_non_read():
+
+    tips = Tip.query.filter(Tip.read==False).all()
+
+    return Response(json.dumps([tip.serialize for tip in tips]), status=200, mimetype='application/json; charset=utf-8')
