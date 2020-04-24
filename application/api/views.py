@@ -102,6 +102,9 @@ def tips_is_read(tip_id):
 def tip_update(tip_id):
     data = request.get_json()
 
+    if 'title' in data and len(data['title']) == 0:
+        return Response(json.dumps({'error': 'title cannot be left empty'}), status=400, mimetype='application/json')
+
     db.session.query(Tip).filter(Tip.id == tip_id).update(data)
     db.session().commit()
 
