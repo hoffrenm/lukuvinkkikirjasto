@@ -32,13 +32,13 @@ def application_homepage(browser):
 # When Steps
 @when(parsers.parse('the user enters title "{title}"'))
 def enter_title(browser, title):
-    search_input = browser.find_element_by_id('tip_url')
-    search_input.send_keys(title + Keys.RETURN)
+    search_input = browser.find_element_by_id('input-Otsikko')
+    search_input.send_keys(title)
 
 
 @when("user clicks save button")
 def click_save(browser):
-    save_button = browser.find_elements_by_xpath('Lisää')
+    save_button = browser.find_element_by_id('button-add-tip')
     save_button.click()
 
 
