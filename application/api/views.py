@@ -94,46 +94,20 @@ def tips_is_read(tip_id):
     tip.readAt = datetime.now()
     db.session().commit()
 
-    return Response(json.dumps(tip.serialize), status=201, mimetype='application/json')
+    return Response(json.dumps(tip.serialize), status=200, mimetype='application/json')
 
 #24.4   3 sprintti
 #Vinkin muokkaaminen
-@api.route('tips/<tip_id>/update', methods=['POST'])
+@api.route('tips/<tip_id>', methods=['PUT'])
 def tip_update(tip_id):
-
-    tip = Tip.query.get(tip_id)
     data = request.get_json()
 
-    #Jos muokkauksessa jää otsikko pois.
-    if "title" not in data or not data["title"]:
-        return Response(json.dumps({'error': 'title must be provided'}), status=400, mimetype='application/json')
-
-    #muokatun tiedon laittaminen talteen.
-    tip.title = data["title"].strip()
-    tip.url = data["url"].strip()
-    
-    string_read = data["read"]
-
-    if string_read.lower() == 'false':
-        tip.read=False
-
-    if string_read.lower() == 'true':
-        tip.read = True
-
-
-        #copypaste create-metodista. Onko toiminnassa oikeastaan eroa?        
-    if 'tags' in data: # käsitellään tagit vain jos attribuutti "tags" datassa
-        for tagName in data["tags"]:
-            # oletus että front palauttaa tagin nimen tagina
-            tag = Tag.query.filter(Tag.name == tagName).first()
-            if tag is None:
-                tag = Tag(tagName)
-                db.session().add(tag)
-            tip.tags.append(tag)
-
+    db.session.query(Tip).filter(Tip.id == tip_id).update(data)
     db.session().commit()
 
-    return Response(json.dumps(tip.serialize), status=201, mimetype='application/json')
+    tip = Tip.query.get(tip_id)
+
+    return Response(json.dumps(tip.serialize), status=200, mimetype='application/json')
 
 
 #24.4    3.sprintti
