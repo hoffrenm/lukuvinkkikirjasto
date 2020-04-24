@@ -17,11 +17,13 @@ class Tip(db.Model):
     #vinkin nimi ja linkki on String-muodossa
     title = db.Column(db.String(144), nullable=False)
     url = db.Column(db.String(144), nullable=True)
-    # puhetta oli, että lukuvinkin voisi merkitä myös luetuksi.
+    # lukuvinkin luettuus, default on lukematon eli false
     read = db.Column(db.Boolean, default=False, nullable=False)
+    # ajankohta, milloin on luettu. lisätty 24.4
+    readAt = db.Column(db.DateTime, default=None)
     #Tipin viittaus yhteystauluun. Viittauksen sijainti on Tipissä, koska tipin perusteella tagien näyttäminen on todennäköisempää kuin toisinpäin
     tags = db.relationship("Tag", secondary = tiptags, lazy = 'subquery',
-    backref = db.backref('users', lazy = True))
+    backref = db.backref('tips', lazy = True))
 
     def __init__(self, title, url):
         self.title = title
@@ -36,13 +38,19 @@ class Tip(db.Model):
             'url' : self.url,
             'read' : self.read,
             'tags' : [tag.name for tag in self.tags],
-            'createdAt': self.date_created
-        }    
+            'createdAt': self.date_created,
+            'read':self.read,
+            'readAt':self.readAt
+        }
+
+        
+
 
 # uusi tag-luokka. Täytyy tarkistaa, kuuluiko tagillekin aikaleima
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(144), nullable=False)
+    
 
     #Tagillekin init-metodi
     def __init__(self, name):
