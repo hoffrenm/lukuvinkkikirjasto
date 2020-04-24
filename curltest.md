@@ -14,4 +14,11 @@ curl -d '{"name": "Testinimi", "link": "http://www.google.com"}' -H "Content-Typ
 
 curl -d '{"title": "Testinimi", "url": "http://www.google.com"}' -H "Content-Type: application/json" http://localhost:5000/api/tips
 
+## viikko3
+
 curl -d '{"title": "Testinimi", "url": "http://www.google.com", "tags": ["kissa","cat","feline"]}' -H "Content-Type: application/json" http://localhost:5000/api/tips
+
+curl  -X POST http://localhost:5000/api/tips/1/read
+
+
+curl -d '{"title": "Testinimi", "url": "http://www.google.com", "tags": ["kissa","cat","feline"],"read":"true"}' -H "Content-Type: application/json" http://localhost:5000/api/tips/1/update
