@@ -10,7 +10,8 @@ from selenium.webdriver.common.keys import Keys
 HOMEPAGE = 'http://localhost:5000'
 
 # Scenarios
-scenarios('../features/web.feature')
+scenarios('../features/adding_tip.feature')
+scenarios('../features/removing_tip.feature')
 
 
 # Fixtures
