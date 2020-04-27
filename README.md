@@ -12,6 +12,12 @@
 
 ## Suorita testit
 
+### BDD testit
+```
+pytest tests/step_defs/test_web.py --live-server-port 5000
+```
+### Integraatiotestit
+
 Alla oleva toimii ainakin Linuxilla (muista aktivoida venv)
 ```
 pytest --cov=./application/api/ --cov-report html

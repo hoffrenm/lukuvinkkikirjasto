@@ -31,5 +31,5 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
-            pytest --cov=./application/api/
+            pytest --cov=./application/api/ --ignore=tests/step_defs/test_web.py
             codecov

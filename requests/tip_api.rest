@@ -22,3 +22,10 @@ Content-Type: application/json
 }
 
 ###
+
+PUT http://localhost:5000/api/tips/1
+Content-Type: application/json
+
+{
+    "title": ""
+}
