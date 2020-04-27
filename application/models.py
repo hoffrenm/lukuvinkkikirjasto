@@ -22,7 +22,7 @@ class Tip(db.Model):
     # ajankohta, milloin on luettu. lisätty 24.4
     readAt = db.Column(db.DateTime, default=None)
     #Tipin viittaus yhteystauluun. Viittauksen sijainti on Tipissä, koska tipin perusteella tagien näyttäminen on todennäköisempää kuin toisinpäin
-    tags = db.relationship("Tag", secondary = tiptags, lazy = 'subquery',
+    tags = db.relationship("Tag", uselist=True, secondary = tiptags, lazy = 'select',
     backref = db.backref('tips', lazy = True))
 
     def __init__(self, title, url):

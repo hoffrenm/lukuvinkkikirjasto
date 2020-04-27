@@ -91,7 +91,7 @@ def tips_is_read(tip_id):
     tip = Tip.query.get(tip_id)
     tip.read = True
     #datetimen huono puoli on se, että se ottaa ajan sieltä, missä serveri sijaitsee. Herokun serveri tais olla jenkeissä.
-    tip.readAt = datetime.now()
+    tip.readAt = datetime.utcnow()
     db.session().commit()
 
     return Response(json.dumps(tip.serialize), status=200, mimetype='application/json')
@@ -101,14 +101,28 @@ def tips_is_read(tip_id):
 @api.route('tips/<tip_id>', methods=['PUT'])
 def tip_update(tip_id):
     data = request.get_json()
+    tip = Tip.query.get(tip_id)
 
     if 'title' in data and len(data['title']) == 0:
         return Response(json.dumps({'error': 'title cannot be left empty'}), status=400, mimetype='application/json')
 
-    db.session.query(Tip).filter(Tip.id == tip_id).update(data)
-    db.session().commit()
+    if 'tags' in data:
+        tip.tags = []
+        db.session().commit()
 
-    tip = Tip.query.get(tip_id)
+        for tagName in data["tags"]:
+            tag = Tag.query.filter(Tag.name == tagName).first()
+
+            if (tag is None):
+                tag = Tag(tagName)
+                db.session().add(tag)
+
+            tag.tips.append(tip)
+        
+        del data["tags"]
+
+    db.session.query(Tip).filter(Tip.id == tip_id).update(data, synchronize_session='fetch')
+    db.session().commit()
 
     return Response(json.dumps(tip.serialize), status=200, mimetype='application/json')
 
