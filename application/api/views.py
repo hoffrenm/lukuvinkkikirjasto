@@ -68,7 +68,11 @@ def tips_for_tag(tag_name):
     tag = Tag.query.filter(Tag.name==tag_name).first()
     # koska relaatio on backreffillä olemassa tietokannassa, pitäisi olla mahdollista hakea
     # tags = tip.tags ja vastaavasti:
-    tips = tag.tips
+
+    if tag is None:
+        tips = []
+    else:
+        tips = tag.tips
  
     return Response(json.dumps([tip.serialize for tip in tips]), status=200, mimetype='application/json; charset=utf-8')
 
