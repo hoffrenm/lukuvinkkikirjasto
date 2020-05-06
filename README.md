@@ -7,6 +7,7 @@
 ## Linkit
 
 - [Appi herokussa](https://nvinkit.herokuapp.com/)
+- [Loppuraportti](https://docs.google.com/document/d/1sPt2wHKzjOJZ0SnHG1y4wUJlGAxlocX_34-IYLNl-wY/edit?usp=sharing)
 - [Backlog](https://docs.google.com/spreadsheets/d/1IS_yv30a5yUQ6J1LMNpbrXzmWxI1I0-6cgwT6GnvXSs/edit?usp=sharing)
 - [Definition of done](https://github.com/hoffrenm/lukuvinkkikirjasto/blob/master/definitionOfDone.md)
 
